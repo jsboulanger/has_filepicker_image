@@ -31,8 +31,12 @@ filepicker.pickImage = function($button) {
       $container.find('.filepicker-image').show();
       $button.hide();
     },
-    function(fpfiles) {
-      alert('Error uploading file');
+    function(fperror) {
+      // Returns 101 when the user closes the window.
+      if(fperror['code'] != 101) {
+        console.log(JSON.stringify(fpfiles));
+        alert('Error uploading file');
+      }
     }
   );
 };
