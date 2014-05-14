@@ -5,6 +5,7 @@ module HasFilepickerImage
       @attribute_name = attribute_name
       @template = template
       @options = options
+      @api_key = ::Rails.application.config.has_filepicker_image.api_key
     end
 
     def render
@@ -12,6 +13,8 @@ module HasFilepickerImage
     end
 
     private
+
+    attr_reader :api_key
 
     def buttons
       @template.content_tag(
@@ -56,7 +59,8 @@ module HasFilepickerImage
         html_options.merge(
           :href  => '#',
           :style => value.present? ? 'display:none;' : '',
-          :'data-action' => 'pickImage'
+          :'data-action' => 'pickImage',
+          :'data-apikey' => api_key
         )
       )
     end

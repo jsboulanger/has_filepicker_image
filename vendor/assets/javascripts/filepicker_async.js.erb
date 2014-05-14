@@ -1,7 +1,5 @@
 (function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document);
 
-filepicker.setKey('<%= ::Rails.application.config.has_filepicker_image.api_key %>');
-
 filepicker.previewPickedImage = function($container, url) {
   var $imageContainer = $container.find('.filepicker-image');
   var img = $("<img src='" + url + '/convert?w=50&h=50' + '\'/>');
@@ -20,6 +18,8 @@ filepicker.removeImage = function($button) {
 filepicker.pickImage = function($button) {
   var data = $button.data();
   var $container = $button.parent().parent();
+  var apiKey = data['apikey'];
+  filepicker.setKey(apiKey);
   filepicker.pickAndStore(
     data,
     data,

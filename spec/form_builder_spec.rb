@@ -14,6 +14,7 @@ describe HasFilepickerImage::FormBuilderHelper do
       }
       allow_message_expectations_on_nil
       ::Rails.application.stub_chain(:config, :has_filepicker_image).and_return(@configuration)
+      ::Rails.application.stub_chain(:config, :has_filepicker_image, :api_key).and_return "API_KEY"
     end
 
     let(:model)   { TestModel.new }
