@@ -24,7 +24,15 @@ filepicker.pickImage = function($button) {
     data,
     data,
     function(fpfiles) {
-      var url = fpfiles[0].url;
+      var blob;
+      if(fpfiles[0].constructor === Array) {
+        blob = fpfiles[0][0]; // Pick the first one.
+      }
+      else {
+        blob = fpfiles[0];
+      }
+      var url = blob.url;
+
       $container.find('input[type=hidden]').val(url);
       filepicker.previewPickedImage($container, url);
       $container.find('[data-action=removeImage]').show();
@@ -63,4 +71,3 @@ $(document).on('click', 'a[data-action=removeImage]', function(event) {
 
   filepicker.removeImage( $(this) )
 });
-
